@@ -1,0 +1,17 @@
+{% if apt_http_proxy is defined %}
+Acquire::http::proxy "{{ apt_http_proxy }}";
+{% elif proxy_env.http_proxy is defined %}
+Acquire::http::proxy "{{ proxy_env.http_proxy }}";
+{% endif %}
+
+{% if apt_ftp_proxy is defined %}
+Acquire::ftp::proxy "{{ apt_ftp_proxy }}";
+{% elif proxy_env.ftp_proxy is defined %}
+Acquire::ftp::proxy "{{ proxy_env.ftp_proxy }}";
+{% endif %}
+
+{% if apt_https_proxy is defined %}
+Acquire::https::proxy "{{ apt_https_proxy }}";
+{% elif proxy_env.https_proxy is defined %}
+Acquire::https::proxy "{{ proxy_env.https_proxy }}";
+{% endif %}
