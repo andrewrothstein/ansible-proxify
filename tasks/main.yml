@@ -1,20 +1,35 @@
 ---
 - name: install /etc/environment
-  environment: proxy_env
   when: proxy_env.http_proxy is defined
-  template: src='etc/environment.j2' dest='/etc/environment'
+  template: >
+    owner=root
+    group=root
+    mode=644
+    src='etc/environment.j2'
+    dest='/etc/environment'
 
 - name: bash consumes /etc/environment by default
-  environment: proxy_env
   when: proxy_env.http_proxy is defined
-  copy: src='etc/profile.d/proxyenv.sh' dest='/etc/profile.d/proxyenv.sh' mode=644
+  copy: >
+    owner=root
+    group=root
+    src='etc/profile.d/proxyenv.sh'
+    dest='/etc/profile.d/proxyenv.sh'
+    mode=644
 
-- name: yum proxify
-  environment: proxy_env
+- name: allow proxy environment variables to permeate the sudo environment
+  when: proxy_env.http_proxy is defined
+  copy: >
+    owner=root
+    group=root
+    mode=644
+    src=etc/sudoers.d/proxyenv
+    dest=/etc/sudoers.d/proxyenv
+
+- name: EL proxify...
   when: proxy_env.http_proxy is defined and ansible_os_family == 'RedHat'
   include: yum.yml
 
-- name: apt proxify
-  environment: proxy_env
+- name: Debian proxify
   when: proxy_env.http_proxy is defined and ansible_os_family == 'Debian'
   include: apt.yml
