@@ -17,6 +17,14 @@
     dest='/etc/profile.d/proxyenv.sh'
     mode=644
 
+- name: (Debian) install sudo...
+  when: ansible_os_family == 'Debian'
+  apt: name=sudo state=latest
+
+- name: (EL) install sudo...
+  when: ansible_os_family == 'RedHat'
+  yum: name=sudo state=latest
+    
 - name: allow proxy environment variables to permeate the sudo environment
   when: proxy_env.http_proxy is defined
   copy: >
