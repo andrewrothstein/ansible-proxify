@@ -17,6 +17,14 @@
     dest='/etc/profile.d/proxyenv.sh'
     mode=644
 
+- name: EL proxify...
+  when: proxy_env.http_proxy is defined and ansible_os_family == 'RedHat'
+  include: yum.yml
+
+- name: Debian proxify
+  when: proxy_env.http_proxy is defined and ansible_os_family == 'Debian'
+  include: apt.yml
+
 - name: (Debian) install sudo...
   when: ansible_os_family == 'Debian'
   apt: name=sudo state=latest
@@ -34,10 +42,3 @@
     src=etc/sudoers.d/proxyenv
     dest=/etc/sudoers.d/proxyenv
 
-- name: EL proxify...
-  when: proxy_env.http_proxy is defined and ansible_os_family == 'RedHat'
-  include: yum.yml
-
-- name: Debian proxify
-  when: proxy_env.http_proxy is defined and ansible_os_family == 'Debian'
-  include: apt.yml
