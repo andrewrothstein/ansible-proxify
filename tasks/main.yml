@@ -24,21 +24,3 @@
 - name: Debian proxify
   when: proxy_env.http_proxy is defined and ansible_os_family == 'Debian'
   include: apt.yml
-
-- name: (Debian) install sudo...
-  when: ansible_os_family == 'Debian'
-  apt: name=sudo state=latest
-
-- name: (EL) install sudo...
-  when: ansible_os_family == 'RedHat'
-  yum: name=sudo state=latest
-    
-- name: allow proxy environment variables to permeate the sudo environment
-  when: proxy_env.http_proxy is defined
-  copy: >
-    owner=root
-    group=root
-    mode=644
-    src=etc/sudoers.d/proxyenv
-    dest=/etc/sudoers.d/proxyenv
-
