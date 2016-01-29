@@ -1,0 +1,8 @@
+[main]
+gpgcheck=1
+installonly_limit=3
+clean_requirements_on_remove=true
+
+{% if proxy_env.http_proxy is defined %}
+proxy={{ proxy_env.http_proxy }}
+{% endif %}

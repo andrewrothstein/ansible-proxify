@@ -17,10 +17,14 @@
     dest='/etc/profile.d/proxyenv.sh'
     mode=644
 
-- name: EL proxify...
-  when: proxy_env.http_proxy is defined and ansible_os_family == 'RedHat'
+- name: YUM proxify...
+  when: proxy_env.http_proxy is defined and ansible_os_family == 'RedHat' and ansible_os_distribution != 'Fedora'
   include: yum.yml
 
-- name: Debian proxify
+- name: DNF proxify...
+  when: proxy_env.http_proxy is defined and ansible_os_distribution == 'Fedora'
+  include: dnf.yml
+  
+- name: apt proxify
   when: proxy_env.http_proxy is defined and ansible_os_family == 'Debian'
   include: apt.yml

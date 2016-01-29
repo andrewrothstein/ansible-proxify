@@ -1,10 +1,13 @@
 ---
-- name: (RedHat) proxify yum...
-  when: ansible_os_family == "RedHat" and proxy_env.http_proxy is defined
-  template: src=yum.conf.j2 dest=/etc/yum.conf
-  register: yumproxified
+- name: proxify yum...
+  template: >
+    src=yum.conf.j2
+    dest=/etc/yum.conf
+    owner=root
+    group=root
+    mode=644
+  register: proxified
 
-- name: (RedHat) post proxify yum upgrade...
-  when: yumproxified.changed
-  yum: name=* state=latest
-  
+- name: post proxify yum upgrade...
+  when: proxified.changed
+  command: yum update -y
