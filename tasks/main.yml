@@ -18,13 +18,20 @@
     mode=644
 
 - name: YUM proxify...
-  when: proxy_env.http_proxy is defined and ansible_os_family == 'RedHat' and ansible_os_distribution != 'Fedora'
+  when: >-
+    (proxy_env.http_proxy is defined)
+    and (ansible_os_family == 'RedHat')
+    and (ansible_os_distribution != 'Fedora')
   include: yum.yml
 
 - name: DNF proxify...
-  when: proxy_env.http_proxy is defined and ansible_os_distribution == 'Fedora'
+  when: >-
+    (proxy_env.http_proxy is defined)
+    and (ansible_os_distribution == 'Fedora')
   include: dnf.yml
   
 - name: apt proxify
-  when: proxy_env.http_proxy is defined and ansible_os_family == 'Debian'
+  when: >-
+    (proxy_env.http_proxy is defined)
+    and ansible_os_family == 'Debian'
   include: apt.yml
