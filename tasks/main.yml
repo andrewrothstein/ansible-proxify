@@ -21,13 +21,13 @@
   when: >-
     (proxy_env.http_proxy is defined)
     and (ansible_os_family == 'RedHat')
-    and (ansible_os_distribution != 'Fedora')
+    and (ansible_distribution != 'Fedora')
   include: yum.yml
 
 - name: DNF proxify...
   when: >-
     (proxy_env.http_proxy is defined)
-    and (ansible_os_distribution == 'Fedora')
+    and (ansible_distribution == 'Fedora')
   include: dnf.yml
   
 - name: apt proxify
