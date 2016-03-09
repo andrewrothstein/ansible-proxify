@@ -17,7 +17,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - trusty
-  categories:
+  galaxy_tags:
     - networking
 dependencies: []
   
