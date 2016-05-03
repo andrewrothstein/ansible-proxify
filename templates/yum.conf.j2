@@ -10,6 +10,10 @@ plugins=1
 installonly_limit=3
 override_install_langs=en_US.UTF-8
 
+{% if proxify_dl_timeout is defined %}
+timeout={{proxify_dl_timeout}}
+{% endif %}
+
 {% if proxy_env.http_proxy is defined %}
 proxy={{ proxy_env.http_proxy }}
 {% endif %}

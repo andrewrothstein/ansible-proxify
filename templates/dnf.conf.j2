@@ -3,6 +3,10 @@ gpgcheck=1
 installonly_limit=3
 clean_requirements_on_remove=true
 
+{% if proxify_dl_timeout is defined %}
+timeout={{proxify_dl_timeout}}
+{% endif %}
+
 {% if proxy_env.http_proxy is defined %}
 proxy={{ proxy_env.http_proxy }}
 {% endif %}
