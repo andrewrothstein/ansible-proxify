@@ -1,21 +1,24 @@
 ---
 - name: install /etc/environment
   when: proxy_env.http_proxy is defined
+  with_items:
+    - environment
+    - wgetrc
   template: >
     owner=root
     group=root
-    mode=644
-    src='etc/environment.j2'
-    dest='/etc/environment'
+    mode=0644
+    src=etc/{{item}}.j2
+    dest=/etc/{{item}}
 
 - name: bash consumes /etc/environment by default
   when: proxy_env.http_proxy is defined
   copy: >
     owner=root
     group=root
-    src='etc/profile.d/proxyenv.sh'
-    dest='/etc/profile.d/proxyenv.sh'
-    mode=644
+    src=etc/profile.d/proxyenv.sh
+    dest=/etc/profile.d/proxyenv.sh
+    mode=0644
 
 - name: YUM proxify...
   when: >-
