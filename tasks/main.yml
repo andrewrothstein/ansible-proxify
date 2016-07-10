@@ -1,5 +1,7 @@
 ---
 - name: install /etc/environment
+  become : yes
+  become_user: root
   when: proxy_env.http_proxy is defined
   with_items:
     - environment
@@ -12,6 +14,8 @@
     dest=/etc/{{item}}
 
 - name: bash consumes /etc/environment by default
+  become : yes
+  become_user: root
   when: proxy_env.http_proxy is defined
   copy: >
     owner=root
@@ -21,6 +25,8 @@
     mode=0644
 
 - name: YUM proxify...
+  become : yes
+  become_user: root
   when: >-
     (proxy_env.http_proxy is defined)
     and (ansible_os_family == 'RedHat')
@@ -28,12 +34,16 @@
   include: yum.yml
 
 - name: DNF proxify...
+  become : yes
+  become_user: root
   when: >-
     (proxy_env.http_proxy is defined)
     and (ansible_distribution == 'Fedora')
   include: dnf.yml
   
 - name: apt proxify
+  become : yes
+  become_user: root
   when: >-
     (proxy_env.http_proxy is defined)
     and ansible_os_family == 'Debian'
