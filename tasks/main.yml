@@ -6,23 +6,13 @@
   with_items:
     - environment
     - wgetrc
+    - profile.d/proxyenv.sh
   template: >
     owner=root
     group=root
     mode=0644
     src=etc/{{item}}.j2
     dest=/etc/{{item}}
-
-- name: bash consumes /etc/environment by default
-  become : yes
-  become_user: root
-  when: proxy_env.http_proxy is defined
-  copy: >
-    owner=root
-    group=root
-    src=etc/profile.d/proxyenv.sh
-    dest=/etc/profile.d/proxyenv.sh
-    mode=0644
 
 - name: YUM proxify...
   become : yes
