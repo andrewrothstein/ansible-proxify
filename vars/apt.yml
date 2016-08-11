@@ -1,0 +1,4 @@
+---
+proxify_pkg_update_cmd: 'apt upgrade -y'
+proxify_pkg_templates:
+  - etc/apt/apt.conf.d/95proxies

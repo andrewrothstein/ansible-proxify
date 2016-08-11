@@ -1,4 +1,2 @@
 ---
-proxify_pkg_update_cmd: 'yum update -y'
-proxify_pkg_templates:
-  - etc/yum.conf
+proxify_pkg_mgr: yum

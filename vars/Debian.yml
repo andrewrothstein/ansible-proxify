@@ -1,4 +1,3 @@
 ---
-proxify_pkg_update_cmd: 'apt-get update -y && apt-get upgrade -y'
-proxify_pkg_templates:
-  - etc/apt/apt.conf.d/95proxies
+proxify_pkg_mgr: apt-get
+

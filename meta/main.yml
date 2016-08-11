@@ -12,11 +12,9 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - 22
         - 23
     - name: Ubuntu
       versions:
-        - trusty
         - xenial
   galaxy_tags:
     - networking

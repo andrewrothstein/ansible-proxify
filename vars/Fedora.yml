@@ -1,5 +1,2 @@
 ---
-proxify_pkg_update_cmd: 'dnf update -y'
-proxify_pkg_templates:
-  - etc/dnf/dnf.conf
-
+proxify_pkg_mgr: dnf
