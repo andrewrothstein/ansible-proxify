@@ -28,5 +28,4 @@
   when: proxify_it and proxify_proxified|changed
   become: yes
   become_user: root
-  environment: proxy_env
   shell: '{{proxify_pkg_update_cmd}}'
