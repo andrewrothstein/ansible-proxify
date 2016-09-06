@@ -7,7 +7,7 @@ export HTTP_PROXY={{ proxy_env.http_proxy }}
 {% endif %}
 {% if proxy_env.https_proxy is defined %}
 export https_proxy={{ proxy_env.https_proxy }}
-export TTPS_PROXY={{ proxy_env.https_proxy }}
+export HTTPS_PROXY={{ proxy_env.https_proxy }}
 {% else %}
 #export https_proxy=
 #export HTTPS_PROXY=
