@@ -12,7 +12,7 @@ export HTTPS_PROXY={{ proxy_env.https_proxy }}
 #export https_proxy=
 #export HTTPS_PROXY=
 {% endif %}
-export {% if proxy_env.no_proxy is defined %}
+{% if proxy_env.no_proxy is defined %}
 export no_proxy={{ proxy_env.no_proxy }}
 export NO_PROXY={{ proxy_env.no_proxy }}
 {% else %}
