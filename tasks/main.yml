@@ -15,6 +15,7 @@
   with_items:
     - etc/environment
     - etc/profile.d/proxyenv.sh
+    - etc/profile.d/java-proxyenv.sh
     - etc/wgetrc
     - '{{proxify_pkg_templates}}'
   register: proxify_proxified
