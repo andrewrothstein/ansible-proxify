@@ -20,13 +20,14 @@
     - '{{proxify_pkg_templates}}'
   register: proxify_proxified
   when: proxify_it
-  template: >
-    src={{item}}.j2
-    dest=/{{item}}
-    mode=0644
+  template:
+    src: '{{item}}.j2'
+    dest: /{{item}}
+    mode: '0644'
 
 - name: post proxify package update/upgrade...
   when: proxify_it and proxify_proxified|changed
   become: yes
   become_user: root
-  shell: '{{proxify_pkg_update_cmd}}'
+  with_items: '{{proxify_pkg_update_cmds}}'
+  command: '{{item}}'

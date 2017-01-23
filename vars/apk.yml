@@ -1,3 +1,5 @@
 ---
-proxify_pkg_update_cmd: 'apk update && apk upgrade'
+proxify_pkg_update_cmds:
+  - apk update
+  - apk upgrade
 proxify_pkg_templates: []
