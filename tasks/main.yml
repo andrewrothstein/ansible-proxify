@@ -25,6 +25,21 @@
     dest: /{{item}}
     mode: '0644'
 
+- name: configurate git
+  become: yes
+  become_user: root
+  when: proxify_it
+  blockinfile:
+    create: yes
+    dest: ~/.npmrc
+    mode: 0600
+    state: present
+    marker: "# {mark} ANSIBLE MANAGED BLOCK andrewrothstein.proxify"
+    block: |
+      proxy={{proxy_env.http_proxy}}
+      https-proxy={{proxy_env.https_proxy}}
+      no-proxy={{proxy_env.no_proxy}}
+
 - name: post proxify package update/upgrade...
   when: proxify_it and proxify_proxified|changed
   become: yes
