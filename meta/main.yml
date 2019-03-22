@@ -9,14 +9,23 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 7
+        - all
     - name: Fedora
       versions:
-        - 23
+        - all
     - name: Ubuntu
       versions:
-        - xenial
+        - all
+    - name: Debian
+      versions:
+        - jessie
+    - name: MacOSX
+      versions:
+        - all
+    - name: Alpine
+      version:
+        - all
   galaxy_tags:
     - networking
+
 dependencies: []
-  
