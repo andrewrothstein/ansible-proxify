@@ -1,2 +1,2 @@
 ---
-proxify_it : '{{ (proxy_env is defined and proxy_env.http_proxy is defined) | to_json}}'
+proxify_it : '{{ (proxy_env is defined and proxy_env.http_proxy is defined) | to_json }}'

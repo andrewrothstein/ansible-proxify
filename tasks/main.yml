@@ -1,16 +1,16 @@
 ---
 - name: resolve platform specific vars
-  include_vars: "{{item}}"
+  include_vars: "{{ item }}"
   with_first_found:
     - files:
-        - '{{ansible_distribution}}-{{ansible_distribution_release}}.yml'
-        - '{{ansible_distribution}}.yml'
-        - '{{ansible_os_family}}.yml'
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
       paths:
-        - '{{ role_path }}/vars'
+        - '{{  role_path  }}/vars'
 
 - name: include package manager specific vars
-  include_vars: "{{proxify_pkg_mgr}}.yml"
+  include_vars: "{{ proxify_pkg_mgr }}.yml"
 
 - name: templated environment stuffs
   become: yes
@@ -20,15 +20,15 @@
     - etc/profile.d/proxyenv.sh
     - etc/profile.d/java-proxyenv.sh
     - etc/wgetrc
-    - '{{proxify_pkg_templates}}'
+    - '{{ proxify_pkg_templates }}'
   register: proxify_proxified
   when: proxify_it
   template:
-    src: '{{item}}.j2'
-    dest: /{{item}}
+    src: '{{ item }}.j2'
+    dest: /{{ item }}
     mode: '0644'
 
-- name: configurate git
+- name: configurate npm
   become: yes
   become_user: root
   when: proxify_it
@@ -39,13 +39,13 @@
     state: present
     marker: "# {mark} ANSIBLE MANAGED BLOCK andrewrothstein.proxify"
     block: |
-      proxy={{proxy_env.http_proxy}}
-      https-proxy={{proxy_env.https_proxy}}
-      no-proxy={{proxy_env.no_proxy}}
+      proxy={{ proxy_env.http_proxy }}
+      https-proxy={{ proxy_env.https_proxy }}
+      no-proxy={{ proxy_env.no_proxy }}
 
 - name: post proxify package update/upgrade...
   when: proxify_it is changed and proxify_proxified is changed
   become: yes
   become_user: root
-  with_items: '{{proxify_pkg_update_cmds}}'
-  command: '{{item}}'
+  with_items: '{{ proxify_pkg_update_cmds }}'
+  command: '{{ item }}'
