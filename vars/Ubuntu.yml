@@ -1,3 +1,3 @@
 ---
 # xenial and everything there after is just apt not apt-get anymore
-proxify_pkg_mgr: '{% if ansible_distribution_major_version >= 16 %}apt{% else %}apt-get{% endif %}'
+proxify_pkg_mgr: '{% if ansible_distribution_major_version|int >= 16 %}apt{% else %}apt-get{% endif %}'
