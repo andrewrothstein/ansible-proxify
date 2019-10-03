@@ -2,4 +2,5 @@
 proxify_pkg_update_cmds:
   - yum update -y
 proxify_pkg_templates:
-  - etc/yum.conf
+  - f: yum.conf
+    d: /etc
