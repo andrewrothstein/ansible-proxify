@@ -1,0 +1,3 @@
+---
+proxify_pkg_update_cmds:
+  - pacman -Syu
