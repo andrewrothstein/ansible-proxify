@@ -2,3 +2,30 @@
 - hosts: all
   roles:
     - role: '{{ playbook_dir }}'
+      proxify_it: False
+- hosts: all
+  vars:
+    # from https://www.us-proxy.org/
+    webproxy_hostname: 198.211.109.14
+    webproxy_port: 80
+  roles:
+    - role: '{{ playbook_dir }}'
+      proxify_it: True
+      http_proxy_scheme: http
+      http_proxy_hostname: '{{ webproxy_hostname }}'
+      http_proxy_port: '{{ webproxy_port }}'
+      http_proxy_host: '{{ http_proxy_hostname }}:{{ http_proxy_port }}'
+
+      https_proxy_scheme: http
+      https_proxy_hostname: '{{ webproxy_hostname }}'
+      https_proxy_port: '{{ webproxy_port }}'
+      https_proxy_host: '{{ https_proxy_hostname }}:{{ https_proxy_port }}'
+
+      no_proxy_hosts: '127.0.0.1,localhost'
+      no_proxy_domains_with_dot: '.localdomain'
+      no_proxy_domains_with_star: '*.localdomain'
+
+      proxy_env:
+        http_proxy: '{{ http_proxy_scheme }}://{{ http_proxy_host }}/'
+        https_proxy: '{{ https_proxy_scheme }}://{{ https_proxy_host }}/'
+        no_proxy: '{{ no_proxy_hosts }},{{ no_proxy_domains_with_dot }},{{ no_proxy_domains_with_star }}'

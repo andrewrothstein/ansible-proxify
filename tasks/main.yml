@@ -10,47 +10,5 @@
       paths:
         - '{{ role_path }}/vars'
 
-- name: include package manager specific vars
-  include_vars: '{{ proxify_pkg_mgr }}.yml'
-
-- name: templated environment stuffs
-  become: yes
-  become_user: root
-  with_items:
-    - f: environment
-      d: /etc
-    - f: proxyenv.sh
-      d: /etc/profile.d
-    - f: java-proxyenv.sh
-      d: /etc/profile.d
-    - f: wgetrc
-      d: /etc
-    - '{{ proxify_pkg_templates | default([]) }}'
-  register: proxify_proxified
-  when: proxify_it|bool
-  template:
-    src: '{{ item .f }}.j2'
-    dest: '{{ item.d }}/{{ item.f }}'
-    mode: '{{ item.m | default("0644") }}'
-
-- name: configurate npm
-  become: yes
-  become_user: root
-  when: proxify_it|bool
-  blockinfile:
-    create: yes
-    dest: ~/.npmrc
-    mode: 0600
-    state: present
-    marker: "# {mark} ANSIBLE MANAGED BLOCK andrewrothstein.proxify"
-    block: |
-      proxy={{ proxy_env.http_proxy }}
-      https-proxy={{ proxy_env.https_proxy }}
-      no-proxy={{ proxy_env.no_proxy }}
-
-- name: post proxify package update/upgrade...
-  when: proxify_it|bool and proxify_proxified is changed
-  become: yes
-  become_user: root
-  with_items: '{{ proxify_pkg_update_cmds }}'
-  command: '{{ item }}'
+- include_tasks: proxify.yml
+  when: proxify_it | bool
