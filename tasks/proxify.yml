@@ -49,6 +49,7 @@
 - name: post proxify package update/upgrade...
   become: yes
   become_user: root
+  when: proxify_pkg_upgrade
   with_items: '{{ proxify_pkg_update_cmds }}'
   command: '{{ item }}'
   environment: '{{ proxy_env }}'
