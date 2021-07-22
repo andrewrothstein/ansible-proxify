@@ -8,8 +8,8 @@
   vars:
     proxify_it: True
     # from https://www.us-proxy.org/
-    webproxy_hostname: 198.211.109.14
-    webproxy_port: 80
+    webproxy_hostname: 170.254.18.38
+    webproxy_port: 8888
 
     http_proxy_scheme: http
     http_proxy_hostname: '{{ webproxy_hostname }}'
