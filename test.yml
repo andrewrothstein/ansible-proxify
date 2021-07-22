@@ -16,8 +16,8 @@
     http_proxy_host: '{{ http_proxy_hostname }}:{{ http_proxy_port }}'
 
     https_proxy_scheme: https
-    https_proxy_hostname: 3.10.251.232
-    https_proxy_port: 80
+    https_proxy_hostname: 8.210.197.25
+    https_proxy_port: 3128
     https_proxy_host: '{{ https_proxy_hostname }}:{{ https_proxy_port }}'
 
     no_proxy_hosts: '127.0.0.1,localhost'
