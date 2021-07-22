@@ -7,18 +7,17 @@
 - hosts: all
   vars:
     proxify_it: True
-    # from https://www.us-proxy.org/
-    webproxy_hostname: 170.254.18.38
-    webproxy_port: 8888
+
+    # https://proxy-list.org/english/search.php
 
     http_proxy_scheme: http
-    http_proxy_hostname: '{{ webproxy_hostname }}'
-    http_proxy_port: '{{ webproxy_port }}'
+    http_proxy_hostname: 3.219.153.200
+    http_proxy_port: 80
     http_proxy_host: '{{ http_proxy_hostname }}:{{ http_proxy_port }}'
 
-    https_proxy_scheme: http
-    https_proxy_hostname: '{{ webproxy_hostname }}'
-    https_proxy_port: '{{ webproxy_port }}'
+    https_proxy_scheme: https
+    https_proxy_hostname: 3.10.251.232
+    https_proxy_port: 80
     https_proxy_host: '{{ https_proxy_hostname }}:{{ https_proxy_port }}'
 
     no_proxy_hosts: '127.0.0.1,localhost'
