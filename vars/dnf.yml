@@ -1,6 +1,6 @@
 ---
 proxify_pkg_update_cmds:
-  - dnf update -y
+  - dnf update -q -y
 proxify_pkg_templates:
   - f: dnf.conf
     d: /etc/dnf
