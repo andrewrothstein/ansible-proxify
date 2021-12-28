@@ -1,7 +1,7 @@
 ---
 proxify_pkg_update_cmds:
-  - apt-get update -y
-  - apt-get upgrade -y
+  - apt-get update -q -y
+  - apt-get upgrade -q -y
 proxify_pkg_templates:
   - d: /etc/apt/apt.conf.d
     f: 95proxies

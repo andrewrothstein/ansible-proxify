@@ -1,4 +1,4 @@
 ---
 proxify_pkg_update_cmds:
-  - apk update
-  - apk upgrade
+  - apk update -q
+  - apk upgrade -q
