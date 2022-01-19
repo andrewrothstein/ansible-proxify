@@ -3,7 +3,7 @@
   include_vars: '{{ proxify_pkg_mgr }}.yml'
 
 - name: ensure ssh config dir present and permissioned
-  become: yes
+  become: true
   become_user: root
   file:
     path: '{{ ansible_env.HOME }}/.ssh'
@@ -11,7 +11,7 @@
     mode: '0700'
 
 - name: templated environment stuffs
-  become: yes
+  become: true
   become_user: root
   with_items:
     - f: environment
@@ -26,18 +26,16 @@
     - f: wgetrc
       d: /etc
     - '{{ proxify_pkg_templates | default([]) }}'
-  register: proxify_proxified
   template:
     src: '{{ item.t | default(item .f) }}.j2'
     dest: '{{ item.d }}/{{ item.f }}'
     mode: '{{ item.m | default("0644") }}'
+  notify: post_proxify_pkg_upgrade
 
 - name: configurate npm
-  become: yes
-  become_user: root
   blockinfile:
-    create: yes
-    dest: ~/.npmrc
+    create: true
+    dest: '{{ ansible_env.HOME }}/.npmrc'
     mode: 0600
     state: present
     marker: "# {mark} ANSIBLE MANAGED BLOCK andrewrothstein.proxify"
@@ -45,11 +43,3 @@
       proxy={{ proxy_env.http_proxy }}
       https-proxy={{ proxy_env.https_proxy }}
       no-proxy={{ proxy_env.no_proxy }}
-
-- name: post proxify package update/upgrade...
-  become: yes
-  become_user: root
-  when: proxify_pkg_upgrade
-  with_items: '{{ proxify_pkg_update_cmds }}'
-  command: '{{ item }}'
-  environment: '{{ proxy_env }}'

@@ -1,0 +1,8 @@
+---
+- name: post_proxify_pkg_upgrade
+  become: true
+  become_user: root
+  when: proxify_pkg_upgrade
+  with_items: '{{ proxify_pkg_update_cmds }}'
+  command: '{{ item }}'
+  environment: '{{ proxy_env }}'
