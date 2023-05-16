@@ -2,28 +2,28 @@
 # defaults file for proxify in seconds
 proxify_dl_timeout: 300
 
-#http_proxy_scheme: http
-#http_proxy_hostname: http-proxy.example.com
-#http_proxy_port: 3128
-#http_proxy_host: '{{http_proxy_hostname}}:{{http_proxy_port}}'
+# http_proxy_scheme: http
+# http_proxy_hostname: http-proxy.example.com
+# http_proxy_port: 3128
+# http_proxy_host: '{{ http_proxy_hostname }}:{{ http_proxy_port }}'
 
-#https_proxy_scheme: http
-#https_proxy_hostname: https-proxy.example.com
-#https_proxy_port: 3128
-#https_proxy_host: '{{https_proxy_hostname}}:{{https_proxy_port}}'
+# https_proxy_scheme: http
+# https_proxy_hostname: https-proxy.example.com
+# https_proxy_port: 3128
+# https_proxy_host: '{{ https_proxy_hostname }}:{{ https_proxy_port }}'
 
-#ftp_proxy_scheme: ftp
-#ftp_proxy_hostname: ftp-proxy.example.com
-#ftp_proxy_host: '{{ftp_proxy_hostname}}'
+# ftp_proxy_scheme: ftp
+# ftp_proxy_hostname: ftp-proxy.example.com
+# ftp_proxy_host: '{{ ftp_proxy_hostname }}'
 
-#no_proxy_hosts: '127.0.0.1,example.com'
-#no_proxy_domains_with_dot: '.example.com'
-#no_proxy_domains_with_star: '*.example.com'
+# no_proxy_hosts: '127.0.0.1,example.com'
+# no_proxy_domains_with_dot: '.example.com'
+# no_proxy_domains_with_star: '*.example.com'
 
-#proxy_env:
-#  http_proxy: '{{http_proxy_scheme}}://{{http_proxy_host}}/'
-#  https_proxy: '{{https_proxy_scheme}}://{{https_proxy_host}}/'
-#  ftp_proxy: '{{ftp_proxy_scheme}}://{{ftp_proxy_host}}/'
-#  no_proxy: '{{no_proxy_hosts}},{{no_proxy_domains_with_dot}},{{no_proxy_domains_with_star}}'
+# proxy_env:
+#   http_proxy: '{{ http_proxy_scheme }}://{{ http_proxy_host }}/'
+#   https_proxy: '{{ https_proxy_scheme }}://{{ https_proxy_host }}/'
+#   ftp_proxy: '{{ ftp_proxy_scheme }}://{{ ftp_proxy_host }}/'
+#   no_proxy: '{{ no_proxy_hosts }},{{ no_proxy_domains_with_dot }},{{ no_proxy_domains_with_star }}'
 
-proxify_pkg_upgrade: True
+proxify_pkg_upgrade: true

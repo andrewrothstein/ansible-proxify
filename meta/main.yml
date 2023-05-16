@@ -16,19 +16,18 @@ galaxy_info:
     - name: EL
       versions:
         - 8
+        - 9
     - name: Debian
       versions:
         - bullseye
         - buster
     - name: Fedora
       versions:
-        - 34
-        - 35
+        - 36
+        - 37
     - name: Ubuntu
       versions:
-        - bionic
         - focal
+        - jammy
   galaxy_tags:
     - network
-
-dependencies: []
