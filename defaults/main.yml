@@ -26,4 +26,24 @@ proxify_dl_timeout: 300
 #   ftp_proxy: '{{ ftp_proxy_scheme }}://{{ ftp_proxy_host }}/'
 #   no_proxy: '{{ no_proxy_hosts }},{{ no_proxy_domains_with_dot }},{{ no_proxy_domains_with_star }}'
 
+# proxifies the package manager
+proxify_pkg_mgr: true
+
+# schedule a post OS pkg manager proxify with a package update/upgrade
 proxify_pkg_upgrade: true
+
+# proxifies
+# /etc/environment
+# /etc/profile.d/proxyenv.sh
+# /etc/profile.d/java-proxyenv.sh
+proxify_etc: true
+
+# profixies ~/.ssh/environment
+proxify_ssh: true
+
+# proxifies ~/.wgetrc
+proxify_wget: true
+
+# proxifies
+# ~/.npmrc
+proxify_npm: true
