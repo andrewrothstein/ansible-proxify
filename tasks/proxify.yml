@@ -1,6 +1,12 @@
 ---
+- name: rendering the proxy environment vars
+  include_vars: build-proxyenv.yml
+- name: rendered proxy environment
+  debug:
+    msg: '{{ proxify_proxy_env }}'
 - when: >
-    proxify_pkg_mgr is defined
+    proxify_config.enable_pkg_mgr
+    and proxify_pkg_mgr is defined
     and proxify_pkg_templates is defined
   block:
     - name: include package manager specific vars from {{ proxify_pkg_mgr }}.yml
@@ -14,9 +20,9 @@
         src: '{{ item.t | default(item .f) }}.j2'
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
-    notify: post_proxify_pkg_upgrade
+      notify: post_proxify_pkg_upgrade
 
-- when: proxify_etc
+- when: proxify_config.enable_etc
   block:
     - name: proxifying stuff in /etc
       become: true
@@ -33,7 +39,7 @@
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
 
-- when: proxify_ssh
+- when: proxify_config.enable_ssh
   block:
     - name: mkdir -p {{ ansible_env.HOME }}/.ssh
       file:
@@ -50,7 +56,7 @@
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
 
-- when: proxify_wget
+- when: proxify_config.enable_wget
   block:
     - name: proxifying {{ ansible_env.HOME }}/.wgetrc
       with_items:
@@ -62,16 +68,25 @@
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
 
-- when: proxify_npm
+- when: proxify_config.enable_npm
   block:
-    name: proxifying {{ ansible_env.HOME }}/.npmrc
-    blockinfile:
-      create: true
-      dest: '{{ ansible_env.HOME }}/.npmrc'
-      mode: 0600
-      state: present
-      marker: "# {mark} ANSIBLE MANAGED BLOCK andrewrothstein.proxify"
-      block: |
-        proxy={{ proxy_env.http_proxy }}
-        https-proxy={{ proxy_env.https_proxy }}
-        no-proxy={{ proxy_env.no_proxy }}
+    - name: proxifying {{ ansible_env.HOME }}/.npmrc
+      blockinfile:
+        create: true
+        dest: '{{ ansible_env.HOME }}/.npmrc'
+        mode: 0600
+        state: present
+        marker: "# {mark} ANSIBLE MANAGED BLOCK andrewrothstein.proxify"
+        block: |
+          proxy={{ proxify_proxy_env.http_proxy }}
+          https-proxy={{ proxify_proxy_env.https_proxy }}
+          no-proxy={{ proxify_proxy_env.no_proxy }}
+
+- when: proxify_config.enable_rd
+  block:
+    - name: proxifying {{ proxify_rd_override }}
+      template:
+        src: rd-override.yaml.j2
+        dest: '{{ proxify_rd_override }}'
+        mode: 0644
+      notify: proxify_rd_shutdown_then_start

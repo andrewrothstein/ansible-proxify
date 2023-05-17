@@ -1,0 +1,21 @@
+---
+provision:
+- mode: system
+  script: |
+    {% if proxify_proxy_env is defined -%}
+    cat <<EOF > /tmp/proxy.sh
+    export http_proxy="{{ proxify_proxy_env.http_proxy }}"
+    export HTTP_PROXY="{{ proxify_proxy_env.HTTP_PROXY }}"
+    export https_proxy="{{ proxify_proxy_env.https_proxy }}"
+    export HTTPS_PROXY="{{ proxify_proxy_env.HTTPS_PROXY }}"
+    export ftp_proxy="{{ proxify_proxy_env.ftp_proxy }}"
+    export FTP_PROXY="{{ proxify_proxy_env.FTP_PROXY }}"
+    export no_proxy="{{ proxify_proxy_env.no_proxy }}"
+    export NO_PROXY="{{ proxify_proxy_env.NO_PROXY }}"
+    EOF
+    echo ". /tmp/proxy.sh" | sed -i -e '7r /dev/stdin' /etc/init.d/docker
+    echo ". /tmp/proxy.sh" | sed -i -e '9r /dev/stdin' /etc/init.d/containerd
+{%- else -%}
+    sed -i 's/. \/tmp\/proxy.sh//' /etc/init.d/docker
+    sed -i 's/. \/tmp\/proxy.sh//' /etc/init.d/containerd
+{% endif %}

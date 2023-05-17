@@ -1,0 +1,17 @@
+---
+proxify_fqhttpproxy: '{{ proxify_config.http_proxy.scheme }}://{{ proxify_config.http_proxy.hostname }}:{{ proxify_config.http_proxy.port }}/'
+proxify_fqhttpsproxy: '{{ proxify_config.https_proxy.scheme }}://{{ proxify_config.https_proxy.hostname }}:{{ proxify_config.https_proxy.port }}/'
+proxify_fqftpproxy: '{{ proxify_config.ftp_proxy.scheme }}://{{ proxify_config.ftp_proxy.hostname }}'
+proxify_noproxy_hosts: '{{ proxify_config.no_proxy.hosts | join(",") }}'
+proxify_noproxy_domains_with_dot: '.{{ proxify_config.no_proxy.domains | join(",.") }}'
+proxify_noproxy_domains_with_star: '*.{{ proxify_config.no_proxy.domains | join(",*.") }}'
+proxify_fqnoproxy: '{{ proxify_config.http_proxy.hostname }},{{ proxify_config.https_proxy.hostname }},{{ proxify_noproxy_hosts }},{{ proxify_noproxy_domains_with_dot }},{{ proxify_noproxy_domains_with_star }}'
+proxify_proxy_env:
+  http_proxy: '{{ proxify_fqhttpproxy }}'
+  HTTP_PROXY: '{{ proxify_fqhttpproxy }}'
+  https_proxy: '{{ proxify_fqhttpsproxy }}'
+  HTTPS_PROXY: '{{ proxify_fqhttpsproxy }}'
+  ftp_proxy: '{{ proxify_fqftpproxy }}'
+  FTP_PROXY: '{{ proxify_fqftpproxy }}'
+  no_proxy: '{{ proxify_fqnoproxy }}'
+  NO_PROXY: '{{ proxify_fqnoproxy }}'

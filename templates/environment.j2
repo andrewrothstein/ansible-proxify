@@ -1,21 +1,15 @@
-{% if proxy_env.http_proxy is defined %}
-http_proxy={{ proxy_env.http_proxy }}
-HTTP_PROXY={{ proxy_env.http_proxy }}
-{% else %}
+{% if proxify_proxy_env is defined -%}
+http_proxy={{ proxify_proxy_env.http_proxy }}
+HTTP_PROXY={{ proxify_proxy_env.http_proxy }}
+https_proxy={{ proxify_proxy_env.https_proxy }}
+HTTPS_PROXY={{ proxify_proxy_env.https_proxy }}
+no_proxy={{ proxify_proxy_env.no_proxy }}
+NO_PROXY={{ proxify_proxy_env.no_proxy }}
+{%- else -%}
 #http_proxy=
 #HTTP_PROXY=
-{% endif %}
-{% if proxy_env.https_proxy is defined %}
-https_proxy={{ proxy_env.https_proxy }}
-HTTPS_PROXY={{ proxy_env.https_proxy }}
-{% else %}
 #https_proxy=
 #HTTPS_PROXY=
-{% endif %}
-{% if proxy_env.no_proxy is defined %}
-no_proxy={{ proxy_env.no_proxy }}
-NO_PROXY={{ proxy_env.no_proxy }}
-{% else %}
 #no_proxy=
 #NO_PROXY=
-{% endif %}
+{%- endif %}
