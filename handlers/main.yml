@@ -2,7 +2,11 @@
 - name: post_proxify_pkg_upgrade
   become: true
   become_user: root
-  when: proxify_pkg_upgrade
-  with_items: '{{ proxify_pkg_update_cmds }}'
+  when: >
+    proxify_config.enabled_pkg_upgrade
+    and proxify_proxy_env is defined
+  with_items: '{{ proxify_pkg_update_cmds | default([]) }}'
   command: '{{ item }}'
-  environment: '{{ proxy_env }}'
+  environment: '{{ proxify_proxy_env }}'
+- name: proxify_rd_shutdown_then_start
+  command: bash -lc "rdctl shutdown && rdctl start"

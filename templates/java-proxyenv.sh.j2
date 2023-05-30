@@ -1,11 +1,5 @@
-{% if proxy_env is defined %}
-{% if proxy_env.http_proxy is defined %}
-export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost={{http_proxy_hostname}} -Dhttp.proxyPort={{http_proxy_port}}"
-{% endif %}
-{% if proxy_env.https_proxy is defined %}
-export JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyHost={{https_proxy_hostname}} -Dhttps.proxyPort={{https_proxy_port}}"
-{% endif %}
-{% if proxy_env.no_proxy is defined %}
-export JAVA_OPTS="$JAVA_OPTS -DnoProxyHosts={{proxy_env.no_proxy}}"
-{% endif %}
-{% endif %}
+{% if proxify_proxy_env is defined -%}
+export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost='{{ proxify_config.http_proxy.hostname }}' -Dhttp.proxyPort={{ proxify_config.http_proxy.port }}"
+export JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyHost='{{ proxify_config.https_proxy.hostname }}' -Dhttps.proxyPort={{ proxify_config.https_proxy.port }}"
+export JAVA_OPTS="$JAVA_OPTS -DnoProxyHosts='{{ proxify_proxy_env.no_proxy }}'"
+{%- endif %}

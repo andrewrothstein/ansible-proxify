@@ -75,24 +75,16 @@
 
 # You can set the default proxies for Wget to use for http, https, and ftp.
 # They will override the value in the environment.
-{% if proxy_env.https_proxy is defined %}
-https_proxy = {{ proxy_env.https_proxy }}
-{% else %}
+{% if proxify_proxy_env is defined -%}
+https_proxy = {{ proxify_proxy_env.https_proxy }}
+http_proxy = {{ proxify_proxy_env.http_proxy }}
+ftp_proxy = {{ proxify_proxy_env.ftp_proxy }}
+no_proxy = {{ proxify_proxy_env.no_proxy }}
+{%- else -%}
 #https_proxy = http://proxy.yoyodyne.com:18023/
-{% endif %}
-{% if proxy_env.http_proxy is defined %}
-http_proxy = {{ proxy_env.http_proxy }}
-{% else %}
 #http_proxy = http://proxy.yoyodyne.com:18023/
-{% endif %}
-{% if proxy_env.ftp_proxy is defined %}
-ftp_proxy = {{ proxy_env.ftp_proxy }}
-{% else %}
 #ftp_proxy = http://proxy.yoyodyne.com:18023/
-{% endif %}
-{% if proxy_env.no_proxy is defined %}
-no_proxy = {{ proxy_env.no_proxy }}
-{% endif %}
+{%- endif %}
 
 # If you do not want to use proxy at all, set this to off.
 #use_proxy = on

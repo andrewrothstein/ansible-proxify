@@ -1,3 +1,2 @@
 ---
-proxify_pkg_mgr: false
-proxify_etc: false
+proxify_rd_override: '{{ ansible_env.HOME }}/Library/Application Support/rancher-desktop/lima/_config/override.yaml'

@@ -11,4 +11,6 @@
         - '{{ role_path }}/vars'
 
 - include_tasks: proxify.yml
-  when: proxify_it | bool
+  when: >
+    proxify_config is defined
+    and proxify_config.enabled

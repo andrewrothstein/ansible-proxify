@@ -1,49 +1,61 @@
 ---
-# defaults file for proxify in seconds
-proxify_dl_timeout: 300
+proxify_config:
+  enabled: false
 
-# http_proxy_scheme: http
-# http_proxy_hostname: http-proxy.example.com
-# http_proxy_port: 3128
-# http_proxy_host: '{{ http_proxy_hostname }}:{{ http_proxy_port }}'
+  dl_timeout: 300
 
-# https_proxy_scheme: http
-# https_proxy_hostname: https-proxy.example.com
-# https_proxy_port: 3128
-# https_proxy_host: '{{ https_proxy_hostname }}:{{ https_proxy_port }}'
+  http_proxy:
+    scheme: http
+    hostname: http-proxy.example.com
+    port: 3128
 
-# ftp_proxy_scheme: ftp
-# ftp_proxy_hostname: ftp-proxy.example.com
-# ftp_proxy_host: '{{ ftp_proxy_hostname }}'
+  https_proxy:
+    scheme: http
+    hostname: https-proxy.example.com
+    port: 3128
 
-# no_proxy_hosts: '127.0.0.1,example.com'
-# no_proxy_domains_with_dot: '.example.com'
-# no_proxy_domains_with_star: '*.example.com'
+  ftp_proxy:
+    scheme: ftp
+    hostname: ftp-proxy.example.com
 
-# proxy_env:
-#   http_proxy: '{{ http_proxy_scheme }}://{{ http_proxy_host }}/'
-#   https_proxy: '{{ https_proxy_scheme }}://{{ https_proxy_host }}/'
-#   ftp_proxy: '{{ ftp_proxy_scheme }}://{{ ftp_proxy_host }}/'
-#   no_proxy: '{{ no_proxy_hosts }},{{ no_proxy_domains_with_dot }},{{ no_proxy_domains_with_star }}'
+  no_proxy:
+    hosts:
+      - localhost
+      - 127.0.0.1
+    domains:
+      - localdomain.com
+      - consul
+      - svc
+      - svc.cluster.local
+      - internal
+      - docker.internal
+      - privatelink.eastus2.azmk8s.io
+      - privatelink.westus2.azmk8s.io
+      - privatelink.westeurope.azmk8s.io
+      - privatelink.northeurope.azmk8s.io
+      - azmk8s.io
 
-# proxifies the package manager
-proxify_pkg_mgr: true
+  # proxifies the package manager
+  enable_pkg_mgr: true
 
-# schedule a post OS pkg manager proxify with a package update/upgrade
-proxify_pkg_upgrade: true
+  # schedule a post OS pkg manager proxify with a package update/upgrade
+  enable_pkg_upgrade: true
 
-# proxifies
-# /etc/environment
-# /etc/profile.d/proxyenv.sh
-# /etc/profile.d/java-proxyenv.sh
-proxify_etc: true
+  # proxifies
+  # /etc/environment
+  # /etc/profile.d/proxyenv.sh
+  # /etc/profile.d/java-proxyenv.sh
+  enable_etc: true
 
-# profixies ~/.ssh/environment
-proxify_ssh: true
+  # profixies ~/.ssh/environment
+  enable_ssh: true
 
-# proxifies ~/.wgetrc
-proxify_wget: true
+  # proxifies ~/.wgetrc
+  enable_wget: true
 
-# proxifies
-# ~/.npmrc
-proxify_npm: true
+  # proxifies
+  # ~/.npmrc
+  enable_npm: true
+
+  # proxifies ~/Library/Application Support/rancher-desktop/lima/_config/override.yaml
+  enable_rd: false

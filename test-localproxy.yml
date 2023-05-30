@@ -1,0 +1,31 @@
+---
+- hosts: all
+  vars:
+    proxify_config:
+      enabled: true
+
+      http_proxy:
+        scheme: http
+        hostname: localhost
+        port: 3128
+
+      https_proxy:
+        scheme: https
+        hostname: localhost
+        port: 3128
+
+      ftp_proxy:
+        scheme: ftp
+        hostname: localhost
+
+      no_proxy:
+        hosts:
+          - 127.0.0.1
+          - localhost
+        domains:
+          - localdomain
+          - local
+          - vagrant
+          - test
+  roles:
+    - role: '{{ playbook_dir }}'
