@@ -19,15 +19,16 @@ galaxy_info:
         - 9
     - name: Debian
       versions:
+        - bookworm
         - bullseye
-        - buster
     - name: Fedora
       versions:
-        - 36
         - 37
+        - 38
     - name: Ubuntu
       versions:
         - focal
         - jammy
   galaxy_tags:
     - network
+  role_name: proxify

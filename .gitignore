@@ -3,4 +3,3 @@ Dockerfile.*
 requirements.yml
 !meta/requirements.yml
 **/*undo-tree*
-test-blackrock.yml
