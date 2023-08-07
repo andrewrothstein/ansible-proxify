@@ -5,9 +5,8 @@
   debug:
     msg: '{{ proxify_proxy_env }}'
 - when: >
-    proxify_config.enable_pkg_mgr
+    (proxify_config.enable_pkg_mgr | default(false))
     and proxify_pkg_mgr is defined
-    and proxify_pkg_templates is defined
   block:
     - name: include package manager specific vars from {{ proxify_pkg_mgr }}.yml
       include_vars: '{{ proxify_pkg_mgr }}.yml'
@@ -22,7 +21,7 @@
         mode: '{{ item.m | default("0644") }}'
       notify: post_proxify_pkg_upgrade
 
-- when: proxify_config.enable_etc
+- when: proxify_config.enable_etc | default(false)
   block:
     - name: proxifying stuff in /etc
       become: true
@@ -39,7 +38,7 @@
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
 
-- when: proxify_config.enable_ssh
+- when: proxify_config.enable_ssh | default(false)
   block:
     - name: mkdir -p {{ ansible_env.HOME }}/.ssh
       file:
@@ -56,7 +55,7 @@
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
 
-- when: proxify_config.enable_wget
+- when: proxify_config.enable_wget | default(false)
   block:
     - name: proxifying {{ ansible_env.HOME }}/.wgetrc
       with_items:
@@ -68,7 +67,7 @@
         dest: '{{ item.d }}/{{ item.f }}'
         mode: '{{ item.m | default("0644") }}'
 
-- when: proxify_config.enable_npm
+- when: proxify_config.enable_npm | default(false)
   block:
     - name: proxifying {{ ansible_env.HOME }}/.npmrc
       blockinfile:
@@ -82,7 +81,7 @@
           https-proxy={{ proxify_proxy_env.https_proxy }}
           no-proxy={{ proxify_proxy_env.no_proxy }}
 
-- when: proxify_config.enable_rd
+- when: proxify_config.enable_rd | default(false)
   block:
     - name: proxifying {{ proxify_rd_override }}
       template:
