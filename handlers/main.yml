@@ -3,7 +3,7 @@
   become: true
   become_user: root
   when: >
-    proxify_config.enabled_pkg_upgrade
+    (proxify_config.enable_pkg_upgrade | default(false))
     and proxify_proxy_env is defined
   with_items: '{{ proxify_pkg_update_cmds | default([]) }}'
   command: '{{ item }}'
