@@ -1,34 +1,34 @@
 ---
 galaxy_info:
   author: Andrew Rothstein
-  description: role for configuring http(s) network proxies
   company: BlackRock
-  license:
-    - MIT
-  min_ansible_version: 2.0
+  description: role for configuring http(s) network proxies
+  galaxy_tags:
+    - network
+  license: MIT
+  min_ansible_version: '2.0'
+  namespace: andrewrothstein
   platforms:
     - name: Alpine
-      version:
-        - all
-    - name: Archlinux
-      version:
-        - all
-    - name: EL
       versions:
-        - 8
-        - 9
+        - all
+    - name: ArchLinux
+      versions:
+        - all
     - name: Debian
       versions:
         - bookworm
         - bullseye
+    - name: EL
+      versions:
+        - '8'
+        - '9'
     - name: Fedora
       versions:
-        - 37
-        - 38
+        - '39'
+        - '40'
     - name: Ubuntu
       versions:
-        - focal
         - jammy
-  galaxy_tags:
-    - network
+        - noble
   role_name: proxify
